@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:latest
+    volumes:
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+
+  storage:
+    image: fsouza/fake-gcs-server
+    volumes:
+      - "./data:/data"
+    ports:
+      - 4443:4443
+    command: ["-scheme", "http", "-port", "4443", "-external-url", "http://localhost:4443", "-backend", "memory"]
+    # curl http://localhost:4443/storage/v1/b

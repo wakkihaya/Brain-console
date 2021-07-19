@@ -5,7 +5,7 @@ export const dbConfig: TypeOrmModuleOptions = {
   host: 'localhost',
   port: 3306,
   username: 'user',
-  password: 'password',
+  password: 'test',
   database: 'test_db',
   entities: [],
   synchronize: false,

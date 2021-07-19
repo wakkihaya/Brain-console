@@ -34,3 +34,5 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 /src/client/.next
+
+/data/sample-bucket/*.fif
