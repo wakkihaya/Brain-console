@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Brainwaves } from './modules/brainwaves/brainwaves.entity';
+import { Brainwaves } from './entities/brainwaves.entity';
 
 export const dbConfig: TypeOrmModuleOptions = {
   type: 'mysql',

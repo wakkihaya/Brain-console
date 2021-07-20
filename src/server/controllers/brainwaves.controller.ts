@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { BrainwavesService } from './brainwaves.service';
+import { BrainwavesService } from '../services/brainwaves.service';
 
 @Controller('brainwaves')
 export class BrainwavesController {

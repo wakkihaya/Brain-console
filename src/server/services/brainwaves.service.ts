@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Brainwaves } from './brainwaves.entity';
+import { Brainwaves } from '../entities/brainwaves.entity';
 
 @Injectable()
 export class BrainwavesService {
