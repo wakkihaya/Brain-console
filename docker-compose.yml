@@ -7,8 +7,11 @@ services:
       - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_
+
 
   storage:
     image: fsouza/fake-gcs-server
