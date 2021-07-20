@@ -5,6 +5,7 @@ import { BrainwavesService } from '../services/brainwaves.service';
 export class BrainwavesController {
   constructor(private brainwavesService: BrainwavesService) {}
 
+  //TODO: localhostで叩くと、Nextの404エラーが表示される。
   @Get()
   getBrainwaves() {
     return this.brainwavesService.getBrainwaves();
