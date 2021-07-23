@@ -11,4 +11,4 @@ CREATE TABLE brainwaves
   fileName     VARCHAR(40)
 );
 
-INSERT INTO brainwave (id, fileName) VALUES (1, "sample-meg.fif");
+INSERT INTO brainwave (id, fileName) VALUES (1, "sample-1.csv");

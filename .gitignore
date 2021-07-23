@@ -1,3 +1,4 @@
 data/sample-bucket/*.fif
+data/sample-bucket/*.csv
 
 .DS_Store
