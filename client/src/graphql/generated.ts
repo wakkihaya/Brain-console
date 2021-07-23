@@ -19,7 +19,7 @@ export type Scalars = {
 };
 
 export type Brainwave = {
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
   fileName?: Maybe<Scalars['String']>;
 };
 
