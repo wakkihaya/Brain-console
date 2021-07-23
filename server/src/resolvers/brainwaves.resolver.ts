@@ -1,7 +1,9 @@
-import { Brainwaves as BrainwavesEntity } from '@server/entities/brainwaves.entity';
+import {
+  Brainwave  as BrainwavesEntity
+} from '@server/entities/brainwaves.entity';
 import { Inject } from '@nestjs/common';
 import { BrainwavesService } from '@server/services/brainwaves.service';
-import { Query, Args, ID, Resolver } from '@nestjs/graphql';
+import { Query, Args, Int, Resolver } from '@nestjs/graphql';
 
 @Resolver((of) => BrainwavesEntity)
 export class BrainwavesResolver {
@@ -9,13 +11,13 @@ export class BrainwavesResolver {
     @Inject(BrainwavesService) private brainwavesService: BrainwavesService,
   ) {}
 
-  @Query((returns) => BrainwavesEntity)
-  async getBrainwave(@Args('id', { type: () => ID }) id: number) {
+  @Query((returns) => BrainwavesEntity, { nullable: true })
+  async getBrainwave(@Args('id', { type: () => Int }) id: number) {
     return await this.brainwavesService.getBrainwave(id);
   }
 
-  @Query((returns) => [BrainwavesEntity])
+  @Query((returns) => [BrainwavesEntity], { nullable: true })
   async getBrainwaves() {
-    return this.brainwavesService.getBrainwaves();
+    return await this.brainwavesService.getBrainwaves();
   }
 }

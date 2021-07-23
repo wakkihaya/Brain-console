@@ -1,0 +1,13 @@
+query GetBrainwaves{
+  getBrainwaves {
+    id
+    fileName
+  }
+}
+
+query GetBrainwave($id: Int!) {
+  getBrainwave(id: $id) {
+    id
+    fileName
+  }
+}

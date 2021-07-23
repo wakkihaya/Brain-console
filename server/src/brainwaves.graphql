@@ -1,9 +1,9 @@
 type Query{
   getBrainwaves: [Brainwave]
-  getBrainwave(id: ID!): Brainwave
+  getBrainwave(id: Int!): Brainwave
 }
 
 type Brainwave {
-  id: String
+  id: Int!
   fileName: String
 }

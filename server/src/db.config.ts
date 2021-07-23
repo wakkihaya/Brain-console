@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Brainwaves } from '@server/entities/brainwaves.entity';
+import { Brainwave } from '@server/entities/brainwaves.entity';
 
 export const dbConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -8,6 +8,6 @@ export const dbConfig: TypeOrmModuleOptions = {
   username: 'root',
   password: 'test',
   database: 'sample',
-  entities: [Brainwaves],
-  synchronize: false,
+  entities: [Brainwave],
+  synchronize: true,
 };

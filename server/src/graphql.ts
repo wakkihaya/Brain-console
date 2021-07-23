@@ -10,11 +10,11 @@
 export abstract class IQuery {
     abstract getBrainwaves(): Nullable<Nullable<Brainwave>[]> | Promise<Nullable<Nullable<Brainwave>[]>>;
 
-    abstract getBrainwave(id: string): Nullable<Brainwave> | Promise<Nullable<Brainwave>>;
+    abstract getBrainwave(id: number): Nullable<Brainwave> | Promise<Nullable<Brainwave>>;
 }
 
 export class Brainwave {
-    id?: Nullable<string>;
+    id: number;
     fileName?: Nullable<string>;
 }
 
