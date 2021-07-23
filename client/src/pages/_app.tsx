@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { ApolloProvider } from "@apollo/client";
-import { AppProps } from "next/app";
+import { ApolloProvider } from '@apollo/client';
+import { AppProps } from 'next/app';
 
-import { useGraphql } from "@client/hooks/use-graphql";
+import { useGraphql } from '@client/hooks/use-graphql';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const { client } = useGraphql();
@@ -12,6 +12,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <Component {...pageProps} />
     </ApolloProvider>
   );
-}
+};
 
 export default MyApp;

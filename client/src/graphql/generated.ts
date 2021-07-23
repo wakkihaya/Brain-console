@@ -1,10 +1,14 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -24,32 +28,32 @@ export type Query = {
   getBrainwave?: Maybe<Brainwave>;
 };
 
-
 export type QueryGetBrainwaveArgs = {
   id: Scalars['ID'];
 };
 
-export type GetBrainwavesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetBrainwavesQueryVariables = Exact<{ [key: string]: never }>;
 
-
-export type GetBrainwavesQuery = { getBrainwaves?: Maybe<Array<Maybe<Pick<Brainwave, 'id' | 'fileName'>>>> };
+export type GetBrainwavesQuery = {
+  getBrainwaves?: Maybe<Array<Maybe<Pick<Brainwave, 'id' | 'fileName'>>>>;
+};
 
 export type GetBrainwaveQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
-
-export type GetBrainwaveQuery = { getBrainwave?: Maybe<Pick<Brainwave, 'id' | 'fileName'>> };
-
+export type GetBrainwaveQuery = {
+  getBrainwave?: Maybe<Pick<Brainwave, 'id' | 'fileName'>>;
+};
 
 export const GetBrainwavesDocument = gql`
-    query GetBrainwaves {
-  getBrainwaves {
-    id
-    fileName
+  query GetBrainwaves {
+    getBrainwaves {
+      id
+      fileName
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetBrainwavesQuery__
@@ -66,25 +70,48 @@ export const GetBrainwavesDocument = gql`
  *   },
  * });
  */
-export function useGetBrainwavesQuery(baseOptions?: Apollo.QueryHookOptions<GetBrainwavesQuery, GetBrainwavesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetBrainwavesQuery, GetBrainwavesQueryVariables>(GetBrainwavesDocument, options);
-      }
-export function useGetBrainwavesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBrainwavesQuery, GetBrainwavesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetBrainwavesQuery, GetBrainwavesQueryVariables>(GetBrainwavesDocument, options);
-        }
-export type GetBrainwavesQueryHookResult = ReturnType<typeof useGetBrainwavesQuery>;
-export type GetBrainwavesLazyQueryHookResult = ReturnType<typeof useGetBrainwavesLazyQuery>;
-export type GetBrainwavesQueryResult = Apollo.QueryResult<GetBrainwavesQuery, GetBrainwavesQueryVariables>;
-export const GetBrainwaveDocument = gql`
-    query GetBrainwave($id: Int!) {
-  getBrainwave(id: $id) {
-    id
-    fileName
-  }
+export function useGetBrainwavesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetBrainwavesQuery,
+    GetBrainwavesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetBrainwavesQuery, GetBrainwavesQueryVariables>(
+    GetBrainwavesDocument,
+    options,
+  );
 }
-    `;
+export function useGetBrainwavesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBrainwavesQuery,
+    GetBrainwavesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetBrainwavesQuery, GetBrainwavesQueryVariables>(
+    GetBrainwavesDocument,
+    options,
+  );
+}
+export type GetBrainwavesQueryHookResult = ReturnType<
+  typeof useGetBrainwavesQuery
+>;
+export type GetBrainwavesLazyQueryHookResult = ReturnType<
+  typeof useGetBrainwavesLazyQuery
+>;
+export type GetBrainwavesQueryResult = Apollo.QueryResult<
+  GetBrainwavesQuery,
+  GetBrainwavesQueryVariables
+>;
+export const GetBrainwaveDocument = gql`
+  query GetBrainwave($id: Int!) {
+    getBrainwave(id: $id) {
+      id
+      fileName
+    }
+  }
+`;
 
 /**
  * __useGetBrainwaveQuery__
@@ -102,14 +129,37 @@ export const GetBrainwaveDocument = gql`
  *   },
  * });
  */
-export function useGetBrainwaveQuery(baseOptions: Apollo.QueryHookOptions<GetBrainwaveQuery, GetBrainwaveQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetBrainwaveQuery, GetBrainwaveQueryVariables>(GetBrainwaveDocument, options);
-      }
-export function useGetBrainwaveLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBrainwaveQuery, GetBrainwaveQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetBrainwaveQuery, GetBrainwaveQueryVariables>(GetBrainwaveDocument, options);
-        }
-export type GetBrainwaveQueryHookResult = ReturnType<typeof useGetBrainwaveQuery>;
-export type GetBrainwaveLazyQueryHookResult = ReturnType<typeof useGetBrainwaveLazyQuery>;
-export type GetBrainwaveQueryResult = Apollo.QueryResult<GetBrainwaveQuery, GetBrainwaveQueryVariables>;
+export function useGetBrainwaveQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetBrainwaveQuery,
+    GetBrainwaveQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetBrainwaveQuery, GetBrainwaveQueryVariables>(
+    GetBrainwaveDocument,
+    options,
+  );
+}
+export function useGetBrainwaveLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBrainwaveQuery,
+    GetBrainwaveQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetBrainwaveQuery, GetBrainwaveQueryVariables>(
+    GetBrainwaveDocument,
+    options,
+  );
+}
+export type GetBrainwaveQueryHookResult = ReturnType<
+  typeof useGetBrainwaveQuery
+>;
+export type GetBrainwaveLazyQueryHookResult = ReturnType<
+  typeof useGetBrainwaveLazyQuery
+>;
+export type GetBrainwaveQueryResult = Apollo.QueryResult<
+  GetBrainwaveQuery,
+  GetBrainwaveQueryVariables
+>;
