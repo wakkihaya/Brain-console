@@ -18,24 +18,38 @@ export class BrainwavesService {
     return await this.brainwavesRepository.findOne(_id);
   }
 
+  async fetchDataFromCSV(remoteCSV: any): Promise<BrainDataArray[]> {
+    let results = [];
+    const csv = require('csv-parser');
+
+    return new Promise((resolve, reject) => {
+      remoteCSV
+        .createReadStream()
+        .on('error', (error) => {
+          reject(error);
+        })
+        .pipe(csv())
+        .on('data', (data) => {
+          const formatedData = data as BrainDataArray;
+          results.push(formatedData);
+        })
+        .on('end', () => {
+          resolve(results);
+        });
+    });
+  }
+
   async getDataArrayFromStorage(
     targetFileName: string,
   ): Promise<BrainDataArray[]> {
     const { Storage } = require('@google-cloud/storage');
-    const csv = require('csv-parser');
-    let results: BrainDataArray[] = [];
 
     const storage = new Storage({
       apiEndpoint: 'http://localhost:4443',
     });
     const remoteCSV = storage.bucket('sample-bucket').file(targetFileName);
-    remoteCSV
-      .createReadStream()
-      .pipe(csv())
-      .on('data', (data) => {
-        const formatedData = data as BrainDataArray;
-        results.push(formatedData);
-      });
-    return results;
+    const dataArray = await this.fetchDataFromCSV(remoteCSV);
+    console.log(dataArray);
+    return dataArray;
   }
 }
