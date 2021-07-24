@@ -1,13 +1,25 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { InferGetServerSidePropsType } from 'next';
 import { useGraphql } from '@client/hooks/use-graphql';
 import {
   GetBrainwavesQuery,
   GetBrainwavesDocument,
   GetBrainwavesQueryVariables,
   useGetBrainwavesQuery,
+  GetDataArrayFromStorageDocument,
+  GetDataArrayFromStorageQueryVariables,
+  GetDataArrayFromStorageQuery,
 } from '@client/graphql/generated';
+import {
+  Charts,
+  ChartContainer,
+  ChartRow,
+  YAxis,
+  LineChart,
+} from 'react-timeseries-charts';
+import { TimeSeries, TimeRange } from 'pondjs';
+
+var path = require('path');
 
 type Brainwave = {
   id: number;
@@ -25,34 +37,35 @@ const getInitialData = async () => {
   return data;
 };
 
-//TODO: Because of cloud-storage, the bugs happen.
-// const getFIFFileFromStorage = async (brainwave: Brainwave) => {
-//   const targetFileName = brainwave.fileName;
-//   const { Storage } = require('@google-cloud/storage');
-
-//   const storage = new Storage({
-//     apiEndpoint: 'http://localhost:4443',
-//   });
-//   const [content] = await storage
-//     .bucket('sample-bucket')
-//     .file(targetFileName)
-//     .download();
-//   return content;
-// };
+const getDataArrayFromStorage = async (fileName: string) => {
+  const { client } = useGraphql();
+  const { data } = await client.query<
+    GetDataArrayFromStorageQuery,
+    GetDataArrayFromStorageQueryVariables
+  >({
+    query: GetDataArrayFromStorageDocument,
+    variables: { targetFileName: fileName },
+  });
+  return data;
+};
 
 const IndexPage = () => {
-  const [brainData, setBrainData] = useState<Brainwave[]>();
-  const { data, refetch } = useGetBrainwavesQuery();
+  const brainwavesRes = useGetBrainwavesQuery();
 
   useEffect(() => {
     let unmounted = false;
     const func = async () => {
       const initialData = await getInitialData();
       const brainwavesData = (
-        data ? data.getBrainwaves : initialData.getBrainwaves
+        brainwavesRes.data
+          ? brainwavesRes.data.getBrainwaves
+          : initialData.getBrainwaves
       ) as Brainwave[];
-      // const content = await getFIFFileFromStorage(brainwavesData[0]);
-      // console.log(content);
+      //TODO: error: cannot get the data. Even in graphql playground, it's not working.
+      const dataArray = await getDataArrayFromStorage(
+        brainwavesData[0].fileName,
+      );
+      console.log(dataArray);
     };
     func();
     const cleanup = () => {
@@ -61,9 +74,31 @@ const IndexPage = () => {
     return cleanup;
   }, []);
 
+  const formedData = {
+    name: 'traffic',
+    columns: ['time', 'in', 'out'],
+    points: [],
+  };
+
   return (
     <>
-      <div>test</div>
+      {/* <ChartContainer timeRange={series.timerange()} width={800}>
+        <ChartRow height="200">
+          <YAxis
+            id="Amplitude"
+            label="AUD"
+            min={0.5}
+            max={1.5}
+            width="60"
+            type="linear"
+            format="$,.2f"
+          />
+          <Charts>
+            <LineChart axis="axis1" series={series1} />
+          </Charts>
+        </ChartRow>
+      </ChartContainer> */}
+      <div>tet</div>
     </>
   );
 };

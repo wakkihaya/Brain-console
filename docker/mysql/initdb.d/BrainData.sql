@@ -5,7 +5,7 @@ DROP SCHEMA IF EXISTS sample;
 CREATE SCHEMA sample;
 USE sample;
 
-CREATE TABLE brainwaves
+CREATE TABLE brainwave
 (
   id           INT(10),
   fileName     VARCHAR(40)

@@ -18,18 +18,28 @@ export type Scalars = {
   Float: number;
 };
 
+export type BrainDataArray = {
+  time?: Maybe<Scalars['Float']>;
+  data?: Maybe<Scalars['Float']>;
+};
+
 export type Brainwave = {
-  id?: Maybe<Scalars['Int']>;
+  id: Scalars['Int'];
   fileName?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
   getBrainwaves?: Maybe<Array<Maybe<Brainwave>>>;
   getBrainwave?: Maybe<Brainwave>;
+  getDataArrayFromStorage?: Maybe<Array<Maybe<BrainDataArray>>>;
 };
 
 export type QueryGetBrainwaveArgs = {
-  id: Scalars['ID'];
+  id: Scalars['Int'];
+};
+
+export type QueryGetDataArrayFromStorageArgs = {
+  targetFileName: Scalars['String'];
 };
 
 export type GetBrainwavesQueryVariables = Exact<{ [key: string]: never }>;
@@ -39,11 +49,21 @@ export type GetBrainwavesQuery = {
 };
 
 export type GetBrainwaveQueryVariables = Exact<{
-  id: Scalars['ID'];
+  id: Scalars['Int'];
 }>;
 
 export type GetBrainwaveQuery = {
   getBrainwave?: Maybe<Pick<Brainwave, 'id' | 'fileName'>>;
+};
+
+export type GetDataArrayFromStorageQueryVariables = Exact<{
+  targetFileName: Scalars['String'];
+}>;
+
+export type GetDataArrayFromStorageQuery = {
+  getDataArrayFromStorage?: Maybe<
+    Array<Maybe<Pick<BrainDataArray, 'time' | 'data'>>>
+  >;
 };
 
 export const GetBrainwavesDocument = gql`
@@ -162,4 +182,63 @@ export type GetBrainwaveLazyQueryHookResult = ReturnType<
 export type GetBrainwaveQueryResult = Apollo.QueryResult<
   GetBrainwaveQuery,
   GetBrainwaveQueryVariables
+>;
+export const GetDataArrayFromStorageDocument = gql`
+  query GetDataArrayFromStorage($targetFileName: String!) {
+    getDataArrayFromStorage(targetFileName: $targetFileName) {
+      time
+      data
+    }
+  }
+`;
+
+/**
+ * __useGetDataArrayFromStorageQuery__
+ *
+ * To run a query within a React component, call `useGetDataArrayFromStorageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataArrayFromStorageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataArrayFromStorageQuery({
+ *   variables: {
+ *      targetFileName: // value for 'targetFileName'
+ *   },
+ * });
+ */
+export function useGetDataArrayFromStorageQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetDataArrayFromStorageQuery,
+    GetDataArrayFromStorageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetDataArrayFromStorageQuery,
+    GetDataArrayFromStorageQueryVariables
+  >(GetDataArrayFromStorageDocument, options);
+}
+export function useGetDataArrayFromStorageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetDataArrayFromStorageQuery,
+    GetDataArrayFromStorageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetDataArrayFromStorageQuery,
+    GetDataArrayFromStorageQueryVariables
+  >(GetDataArrayFromStorageDocument, options);
+}
+export type GetDataArrayFromStorageQueryHookResult = ReturnType<
+  typeof useGetDataArrayFromStorageQuery
+>;
+export type GetDataArrayFromStorageLazyQueryHookResult = ReturnType<
+  typeof useGetDataArrayFromStorageLazyQuery
+>;
+export type GetDataArrayFromStorageQueryResult = Apollo.QueryResult<
+  GetDataArrayFromStorageQuery,
+  GetDataArrayFromStorageQueryVariables
 >;

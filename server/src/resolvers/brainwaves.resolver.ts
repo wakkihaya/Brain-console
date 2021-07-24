@@ -1,5 +1,6 @@
 import {
-  Brainwave  as BrainwavesEntity
+  Brainwave as BrainwavesEntity,
+  BrainDataArray as BrainDataArrayEntity,
 } from '@server/entities/brainwaves.entity';
 import { Inject } from '@nestjs/common';
 import { BrainwavesService } from '@server/services/brainwaves.service';
@@ -19,5 +20,13 @@ export class BrainwavesResolver {
   @Query((returns) => [BrainwavesEntity], { nullable: true })
   async getBrainwaves() {
     return await this.brainwavesService.getBrainwaves();
+  }
+
+  //TODO:  not showing data on graphql playground
+  @Query((returns) => [BrainDataArrayEntity], { nullable: true })
+  async getDataArrayFromStorage(
+    @Args('targetFileName', { type: () => String }) targetFileName: string,
+  ) {
+    return await this.brainwavesService.getDataArrayFromStorage(targetFileName);
   }
 }

@@ -14,4 +14,10 @@ export class BrainwavesController {
   getBrainwave(@Param() params) {
     return this.brainwavesService.getBrainwave(params.id);
   }
+  @Get(':targetFileName')
+  getDataArrayFromStorage(@Param() params) {
+    return this.brainwavesService.getDataArrayFromStorage(
+      params.targetFileName,
+    );
+  }
 }

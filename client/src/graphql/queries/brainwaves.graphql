@@ -11,3 +11,10 @@ query GetBrainwave($id: Int!) {
     fileName
   }
 }
+
+query GetDataArrayFromStorage($targetFileName: String!) {
+  getDataArrayFromStorage(targetFileName: $targetFileName) {
+    time
+    data
+  }
+}

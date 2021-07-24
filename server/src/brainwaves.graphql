@@ -1,9 +1,15 @@
 type Query{
   getBrainwaves: [Brainwave]
   getBrainwave(id: Int!): Brainwave
+  getDataArrayFromStorage(targetFileName: String!): [BrainDataArray]
 }
 
 type Brainwave {
   id: Int!
   fileName: String
+}
+
+type BrainDataArray {
+  time: Float
+  data: Float
 }

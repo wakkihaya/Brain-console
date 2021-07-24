@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"src/**/*.tsx\"",
+    "format": "prettier --write \"src/**/*.ts\" ",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -22,12 +22,14 @@
   },
   "dependencies": {
     "@apollo/gateway": "^0.33.0",
+    "@google-cloud/storage": "^5.10.0",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/graphql": "^8.0.2",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.0.1",
     "apollo-server-express": "2.x.x",
+    "csv-parser": "^3.0.0",
     "graphql": "^15.5.1",
     "graphql-tools": "^7.0.5",
     "mysql": "^2.18.1",

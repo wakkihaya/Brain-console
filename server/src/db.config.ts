@@ -9,5 +9,5 @@ export const dbConfig: TypeOrmModuleOptions = {
   password: 'test',
   database: 'sample',
   entities: [Brainwave],
-  synchronize: true,
+  synchronize: false,
 };
