@@ -22,7 +22,6 @@ export class BrainwavesResolver {
     return await this.brainwavesService.getBrainwaves();
   }
 
-  //TODO:  not showing data on graphql playground
   @Query((returns) => [BrainDataArrayEntity], { nullable: true })
   async getDataArrayFromStorage(
     @Args('targetFileName', { type: () => String }) targetFileName: string,

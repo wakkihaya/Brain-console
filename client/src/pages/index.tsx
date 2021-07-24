@@ -19,12 +19,16 @@ import {
 } from 'react-timeseries-charts';
 import { TimeSeries, TimeRange } from 'pondjs';
 
-var path = require('path');
 
 type Brainwave = {
   id: number;
   fileName: string;
 };
+
+type BrainDataArray = {
+  time: number;
+  data: number;
+}
 
 const getInitialData = async () => {
   const { client } = useGraphql();
@@ -49,6 +53,13 @@ const getDataArrayFromStorage = async (fileName: string) => {
   return data;
 };
 
+const convertJSONTo2DArray = (targetJSON: BrainDataArray[]) => {
+  const newArray = targetJSON.map((targetItem: BrainDataArray) => {
+    return [targetItem.time, targetItem.data];
+  });
+  return newArray;
+}
+
 const IndexPage = () => {
   const brainwavesRes = useGetBrainwavesQuery();
 
@@ -61,11 +72,13 @@ const IndexPage = () => {
           ? brainwavesRes.data.getBrainwaves
           : initialData.getBrainwaves
       ) as Brainwave[];
-      //TODO: error: cannot get the data. Even in graphql playground, it's not working.
       const dataArray = await getDataArrayFromStorage(
         brainwavesData[0].fileName,
-      );
-      console.log(dataArray);
+      ) as BrainDataArray[];
+      //TODO: convert JSON to 2D array
+      //TODO: Use react-timeseries-charts with points.
+      const formatedPoints = convertJSONTo2DArray(dataArray);
+      console.log(formatedPoints);
     };
     func();
     const cleanup = () => {

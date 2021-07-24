@@ -8,7 +8,7 @@ export class BrainwavesService {
   constructor(
     @InjectRepository(Brainwave)
     private brainwavesRepository: Repository<Brainwave>,
-  ) {}
+  ) { }
 
   async getBrainwaves(): Promise<Brainwave[]> {
     return await this.brainwavesRepository.find();
@@ -49,7 +49,6 @@ export class BrainwavesService {
     });
     const remoteCSV = storage.bucket('sample-bucket').file(targetFileName);
     const dataArray = await this.fetchDataFromCSV(remoteCSV);
-    console.log(dataArray);
     return dataArray;
   }
 }
