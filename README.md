@@ -1,4 +1,5 @@
-Web application that shows the specific brainwave from database.
+## What is Brain-console
+Web application that shows the brainwave data fetched from database by id.
 
 ![demo](https://user-images.githubusercontent.com/46864179/126886018-f329c5dd-ec25-4dc9-a01f-4e9e9d1fbecf.gif)
 
