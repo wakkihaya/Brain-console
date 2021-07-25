@@ -4,7 +4,8 @@ html {
   margin: 0;
 }
 .container {
-  background-color: #010066;
+  background-color:#2E2E66
+;
   overflow: hidden;
   height: 100vh;
   width: 100vw;
@@ -26,5 +27,10 @@ html {
     text {
       fill: #7c71bf;
     }
+  }
+  &--no-data{
+    font-size: 5vw;
+    color: white;
+    text-align: center;
   }
 }
