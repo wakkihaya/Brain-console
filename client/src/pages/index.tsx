@@ -10,7 +10,7 @@ import {
   GetDataArrayFromStorageQueryVariables,
   GetDataArrayFromStorageQuery,
 } from '@client/graphql/generated';
-import { LineChart, Line, XAxis } from 'recharts';
+import { LineChart, Line, XAxis, Tooltip } from 'recharts';
 
 type Brainwave = {
   id: number;
@@ -76,10 +76,19 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
-      <LineChart width={1000} height={400} data={points}>
-        <Line type="monotone" dataKey="data" stroke="#8884d8" dot={false} />
-        <XAxis dataKey="time" />
-      </LineChart>
+      <div className="container">
+        <LineChart width={1000} height={400} data={points}>
+          <Line
+            type="monotone"
+            dataKey="data"
+            stroke="#8884d8"
+            dot={false}
+            strokeWidth={5}
+          />
+          <XAxis dataKey="time" axisLine={false} tickLine={false} />
+          <Tooltip />
+        </LineChart>
+      </div>
     </>
   );
 };

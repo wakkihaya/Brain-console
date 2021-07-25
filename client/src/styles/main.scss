@@ -1,0 +1,21 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+}
+.container {
+  background-color: #010066;
+  .recharts-wrapper {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+  .recharts-surface {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+  .recharts-layer {
+    text {
+      fill: #7c71bf;
+    }
+  }
+}
