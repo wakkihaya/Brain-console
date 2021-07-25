@@ -13,6 +13,7 @@ import {
 } from '@client/graphql/generated';
 import { LineChart, Line, XAxis, Tooltip } from 'recharts';
 import { useRouter } from 'next/router';
+import ReactLoading from 'react-loading';
 
 type Brainwave = {
   id: number;
@@ -53,10 +54,12 @@ const PageById: React.FC = () => {
 
   const [points, setPoints] = useState<BrainDataArray[]>([]);
   const [hasData, setHasData] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const pathId = router.query.id;
 
   useEffect(() => {
+    setIsLoading(true);
     let unmounted = false;
     const func = async () => {
       const initialData = await getInitialData();
@@ -70,6 +73,7 @@ const PageById: React.FC = () => {
       );
       if (!targetBrainWave) {
         setHasData(false);
+        setIsLoading(false);
         return;
       }
       const dataArray = await getDataArrayFromStorage(targetBrainWave.fileName);
@@ -79,6 +83,7 @@ const PageById: React.FC = () => {
       const cutPoints = formatedPoints.slice(0, 100); ///Data has lots of items, so split it to make the chart render smoothly.
       setPoints(cutPoints);
       setHasData(true);
+      setIsLoading(false);
     };
     func();
     const cleanup = () => {
@@ -99,20 +104,34 @@ const PageById: React.FC = () => {
       </Head>
       <div className="container">
         <header>Brain console</header>
-        {hasData ? (
-          <LineChart width={1000} height={400} data={points}>
-            <Line
-              type="monotone"
-              dataKey="data"
-              stroke="#8884d8"
-              dot={false}
-              strokeWidth={5}
-            />
-            <XAxis dataKey="time" axisLine={false} tickLine={false} />
-            <Tooltip />
-          </LineChart>
+        {!isLoading ? (
+          <>
+            {hasData ? (
+              <LineChart width={1000} height={400} data={points}>
+                <Line
+                  type="monotone"
+                  dataKey="data"
+                  stroke="#8884d8"
+                  dot={false}
+                  strokeWidth={5}
+                />
+                <XAxis dataKey="time" axisLine={false} tickLine={false} />
+                <Tooltip />
+              </LineChart>
+            ) : (
+              <div className="container--no-data">No data</div>
+            )}
+          </>
         ) : (
-          <div className="container--no-data">No data</div>
+          <div className="container--loading">
+            <ReactLoading
+              className="container--loading-icon"
+              type={'balls'}
+              color={'#7c71bf'}
+              height={'15%'}
+              width={'15%'}
+            />
+          </div>
         )}
       </div>
     </>
