@@ -7,8 +7,8 @@ Web application that shows the brainwave data fetched from database by id.
 ## How it works
 ![how it works](https://user-images.githubusercontent.com/46864179/126886427-c19ec0ad-249d-4fb2-bbfc-af554e1103cb.jpg)
 
-- Frontend: Next.js
-- Backend: Nest.js
+- Frontend: Next.js, SCSS,
+- Backend: Nest.js, GraphQL
 - Database: MySQL(Docker), Google Cloud Storage(Docker)
 
 ## Run
@@ -29,6 +29,7 @@ time,data
 ...
 ```
 
+<br>
 ### 1. Run virtual database using mysql and google cloud storage in docker.
 
 `docker-compose up -d`
@@ -36,6 +37,7 @@ time,data
 At initial running, initial data with `sample-1.csv` file is supposed to be created in mysql.
 
 
+<br>
 ### 2. Run web application.
 
 1. For client,
@@ -47,6 +49,8 @@ At initial running, initial data with `sample-1.csv` file is supposed to be crea
 3. To see playground of graphQL,
    access `http://localhost:3300/graphql`
 
+
+<br>
 ### 3. Access your brainwave data.
 By specifing id on uri, you will get the brainwave data you want.
 
