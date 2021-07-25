@@ -10,15 +10,7 @@ import {
   GetDataArrayFromStorageQueryVariables,
   GetDataArrayFromStorageQuery,
 } from '@client/graphql/generated';
-import {
-  Charts,
-  ChartContainer,
-  ChartRow,
-  YAxis,
-  LineChart,
-} from 'react-timeseries-charts';
-import { TimeSeries, TimeRange } from 'pondjs';
-
+import { LineChart, Line, XAxis } from 'recharts';
 
 type Brainwave = {
   id: number;
@@ -28,7 +20,7 @@ type Brainwave = {
 type BrainDataArray = {
   time: number;
   data: number;
-}
+};
 
 const getInitialData = async () => {
   const { client } = useGraphql();
@@ -53,15 +45,9 @@ const getDataArrayFromStorage = async (fileName: string) => {
   return data;
 };
 
-const convertJSONTo2DArray = (targetJSON: BrainDataArray[]) => {
-  const newArray = targetJSON.map((targetItem: BrainDataArray) => {
-    return [targetItem.time, targetItem.data];
-  });
-  return newArray;
-}
-
-const IndexPage = () => {
+const IndexPage: React.FC = () => {
   const brainwavesRes = useGetBrainwavesQuery();
+  const [points, setPoints] = useState<BrainDataArray[]>([]);
 
   useEffect(() => {
     let unmounted = false;
@@ -74,11 +60,12 @@ const IndexPage = () => {
       ) as Brainwave[];
       const dataArray = await getDataArrayFromStorage(
         brainwavesData[0].fileName,
-      ) as BrainDataArray[];
-      //TODO: convert JSON to 2D array
-      //TODO: Use react-timeseries-charts with points.
-      const formatedPoints = convertJSONTo2DArray(dataArray);
-      console.log(formatedPoints);
+      );
+      const formatedPoints = dataArray[
+        'getDataArrayFromStorage'
+      ] as BrainDataArray[];
+      const cutPoints = formatedPoints.slice(0, 100); ///Data has lots of items, so split it to make the chart render smoothly.
+      setPoints(cutPoints);
     };
     func();
     const cleanup = () => {
@@ -87,31 +74,12 @@ const IndexPage = () => {
     return cleanup;
   }, []);
 
-  const formedData = {
-    name: 'traffic',
-    columns: ['time', 'in', 'out'],
-    points: [],
-  };
-
   return (
     <>
-      {/* <ChartContainer timeRange={series.timerange()} width={800}>
-        <ChartRow height="200">
-          <YAxis
-            id="Amplitude"
-            label="AUD"
-            min={0.5}
-            max={1.5}
-            width="60"
-            type="linear"
-            format="$,.2f"
-          />
-          <Charts>
-            <LineChart axis="axis1" series={series1} />
-          </Charts>
-        </ChartRow>
-      </ChartContainer> */}
-      <div>tet</div>
+      <LineChart width={1000} height={400} data={points}>
+        <Line type="monotone" dataKey="data" stroke="#8884d8" dot={false} />
+        <XAxis dataKey="time" />
+      </LineChart>
     </>
   );
 };
