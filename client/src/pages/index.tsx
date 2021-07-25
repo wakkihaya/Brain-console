@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 
 import { useGraphql } from '@client/hooks/use-graphql';
 import {
@@ -76,7 +77,16 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap"
+          rel="stylesheet"
+        ></link>
+      </Head>
       <div className="container">
+        <header>Brain console</header>
         <LineChart width={1000} height={400} data={points}>
           <Line
             type="monotone"

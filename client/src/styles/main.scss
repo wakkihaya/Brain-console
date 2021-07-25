@@ -5,13 +5,22 @@ html {
 }
 .container {
   background-color: #010066;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  header{
+    color: white;
+    font-size: 2vw;
+    padding: .5em 1em;
+    font-family: 'Roboto Slab', serif;
+  }
   .recharts-wrapper {
-    width: 100vw !important;
-    height: 100vh !important;
+    width: 100% !important;
+    height: 100% !important;
   }
   .recharts-surface {
-    width: 100vw !important;
-    height: 100vh !important;
+    width: 100% !important;
+    height: 100% !important;
   }
   .recharts-layer {
     text {
