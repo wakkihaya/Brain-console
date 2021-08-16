@@ -30,6 +30,7 @@ time,data
 ```
 
 <br>
+
 ### 1. Run virtual database using mysql and google cloud storage in docker.
 
 `docker-compose up -d`
@@ -38,6 +39,7 @@ At initial running, initial data with `sample-1.csv` file is supposed to be crea
 
 
 <br>
+
 ### 2. Run web application.
 
 1. For client,
@@ -51,6 +53,7 @@ At initial running, initial data with `sample-1.csv` file is supposed to be crea
 
 
 <br>
+
 ### 3. Access your brainwave data.
 By specifing id on uri, you will get the brainwave data you want.
 
